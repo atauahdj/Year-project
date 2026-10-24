@@ -1,10 +1,5 @@
 {
   "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
     "com.h8man.2d.navmeshplus": {
       "version": "https://github.com/h8man/NavMeshPlus.git",
       "depth": 0,
@@ -108,10 +103,6 @@
       },
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
->>>>>>> 60b322e (baba)
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
     "com.unity.ai.navigation": {
       "version": "1.1.7",
       "depth": 0,
@@ -131,42 +122,13 @@
       },
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "com.unity.ext.nunit": {
-      "version": "1.0.6",
-      "depth": 2,
-=======
     "com.unity.collab-proxy": {
       "version": "2.12.4",
       "depth": 0,
->>>>>>> 60b322e (baba)
-=======
-    "com.unity.collab-proxy": {
-      "version": "2.12.4",
-      "depth": 0,
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "com.unity.ide.visualstudio": {
-      "version": "2.0.28",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.33"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ide.vscode": {
-      "version": "1.2.5",
-      "depth": 0,
-=======
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
     "com.unity.collections": {
       "version": "1.2.4",
       "depth": 2,
@@ -180,19 +142,10 @@
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
-<<<<<<< HEAD
->>>>>>> 60b322e (baba)
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
     "com.unity.feature.2d": {
       "version": "2.0.1",
       "depth": 0,
@@ -218,18 +171,21 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.22",
+      "version": "2.0.28",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.test-framework": "1.1.9"
+        "com.unity.test-framework": "1.1.33"
       },
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
->>>>>>> 60b322e (baba)
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
+    "com.unity.ide.vscode": {
+      "version": "1.2.5",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.inputsystem": {
       "version": "1.14.2",
       "depth": 0,
@@ -241,15 +197,7 @@
     },
     "com.unity.mathematics": {
       "version": "1.2.6",
-<<<<<<< HEAD
-<<<<<<< HEAD
       "depth": 0,
-=======
-      "depth": 1,
->>>>>>> 60b322e (baba)
-=======
-      "depth": 1,
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -312,15 +260,7 @@
     },
     "com.unity.test-framework": {
       "version": "1.1.33",
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "depth": 1,
-=======
       "depth": 0,
->>>>>>> 60b322e (baba)
-=======
-      "depth": 0,
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6",
@@ -330,15 +270,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-<<<<<<< HEAD
-<<<<<<< HEAD
       "version": "3.0.9",
-=======
-      "version": "3.0.7",
->>>>>>> 60b322e (baba)
-=======
-      "version": "3.0.7",
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -346,14 +278,6 @@
       },
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "com.unity.ugui": {
-      "version": "1.0.0",
-      "depth": 1,
-=======
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
     "com.unity.timeline": {
       "version": "1.7.7",
       "depth": 0,
@@ -369,10 +293,6 @@
     "com.unity.ugui": {
       "version": "1.0.0",
       "depth": 0,
-<<<<<<< HEAD
->>>>>>> 60b322e (baba)
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
@@ -380,15 +300,7 @@
       }
     },
     "com.unity.visualscripting": {
-<<<<<<< HEAD
-<<<<<<< HEAD
       "version": "1.9.11",
-=======
-      "version": "1.9.4",
->>>>>>> 60b322e (baba)
-=======
-      "version": "1.9.4",
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
       "depth": 0,
       "source": "registry",
       "dependencies": {

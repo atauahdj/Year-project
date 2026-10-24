@@ -19,7 +19,8 @@ public class ParentNPC : MonoBehaviour
     int counter_npc = 0;
     void Start()
     {
-        while(counter_npc <= 29)
+        int max_npc = Random.Range(51,68);
+        while(counter_npc <= max_npc-1)
         {
             Instantiate(npc_prefab);
             counter_npc++;

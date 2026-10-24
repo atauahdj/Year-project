@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 using System.Collections;
 using System.Collections.Generic;
-=======
->>>>>>> 60b322e (baba)
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
 using Unity.AI.Navigation.Samples;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Police_script : MonoBehaviour
 {
@@ -16,11 +11,7 @@ public class Police_script : MonoBehaviour
     public bool police_called;
     public Vector3 start_pos;
     GameObject body;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
+
     public GameObject[] bodies;
     public Controller player;
 
@@ -30,45 +21,19 @@ public class Police_script : MonoBehaviour
     public bool find_body;
     public bool chase_player;
     public SpriteRenderer sprite_renderer;
+    public GameObject Wanted_Image;
 
-<<<<<<< HEAD
->>>>>>> 60b322e (baba)
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
+    float chasing_timer;
+
     void Start()
     {
         police_called = true;
         agent = GetComponent<NavMeshAgent>();
         start_pos = transform.position;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    }
-
-    bool find_body;
-    void Update()
-    {
-        if(Vector3.Distance(transform.position, start_pos) <= 3f && find_body)
-        {
-            Destroy(gameObject);
-        }
-        agent.updateRotation = false;
-        body = GameObject.FindGameObjectWithTag("Dead_body");
-        if(Vector3.Distance(transform.position, body.transform.position) <= 3f)
-        {
-            find_body = true;
-            Destroy(body);
-        }
-        if(!find_body)
-        {
-            agent.destination = body.transform.position;
-        }
-        else
-=======
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
         bodies = GameObject.FindGameObjectsWithTag("Dead_body");
         true_body = bodies.Length;
         player = FindObjectOfType<Controller>();
+        Wanted_Image = player.Wanted_Image;
         Debug.Log(true_body);
     }
 
@@ -76,6 +41,7 @@ public class Police_script : MonoBehaviour
     {
         startTime += Time.deltaTime;
         agent.updateRotation = false;
+
         // ---- 1. Погоня за игроком ----
         foreach (GameObject b in GameObject.FindGameObjectsWithTag("Dead_body"))
         {
@@ -84,6 +50,7 @@ public class Police_script : MonoBehaviour
             if (body_sb == null) continue;
 
             if (body_sb.timer_since_moment_murder <= 4f
+                && player != null
                 && Vector3.Distance(player.transform.position, b.transform.position) <= 7f
                 && Vector3.Distance(player.transform.position, transform.position) <= 7f)
             {
@@ -92,25 +59,39 @@ public class Police_script : MonoBehaviour
             }
         }
 
-        if (chase_player)
+        if (chase_player && player != null)
         {
-            agent.speed = 5f;
+            agent.speed = 6f;
             agent.destination = player.transform.position;
-
+            Wanted_Image.SetActive(true);
+            chasing_timer += Time.deltaTime;
             if (Vector3.Distance(transform.position, player.transform.position) <= 3f)
             {
                 Destroy(player.gameObject);
                 chase_player = false;
                 find_body = true;
             }
+            else if(chasing_timer > 30f)
+            {
+                Wanted_Image.SetActive(false);
+                chase_player = false;
+            }
             return; // пока гонимся — не занимаемся трупами
+        }
+        else
+        {
+            agent.speed = 3.5f;
+            agent.destination = start_pos;
         }
 
         agent.speed = 3.5f;
 
         // ---- 2. Работа с трупами ----
         true_body = 0;
-        foreach (var b in bodies) if (b != null) true_body++;
+        if (bodies != null)
+        {
+            foreach (var b in bodies) if (b != null) true_body++;
+        }
 
         if (true_body == 0)
         {
@@ -121,8 +102,16 @@ public class Police_script : MonoBehaviour
         // Возврат домой и самоуничтожение
         if (find_body && Vector3.Distance(transform.position, start_pos) <= 3f)
         {
-            Destroy(gameObject);
-            return;
+            if(player != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            else
+            {
+                SceneManager.LoadScene(0);
+                return;
+            }
         }
 
         // Выбор ближайшего трупа
@@ -140,15 +129,17 @@ public class Police_script : MonoBehaviour
                 }
             }
         }
+
         // Поворот к цели
-            if(transform.position.x < agent.destination.x)
-            {
-                sprite_renderer.transform.rotation = Quaternion.Euler(0f, 0,0f);
-            }
-            else
-            {
-                sprite_renderer.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
-            }
+        if (agent.destination.x > transform.position.x)
+        {
+            sprite_renderer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+        else
+        {
+            sprite_renderer.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
+        }
+
         // Движение и уничтожение трупа
         if (body != null)
         {
@@ -159,24 +150,11 @@ public class Police_script : MonoBehaviour
                 Destroy(body);
                 body = null;
                 true_body--;
-//                Debug.Log(true_body);
             }
         }
         else if (find_body)
-<<<<<<< HEAD
->>>>>>> 60b322e (baba)
-=======
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
         {
             agent.destination = start_pos;
         }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 60b322e (baba)
-=======
-}
->>>>>>> 60b322e7cec1d06ad970207b909492890bdb0538
