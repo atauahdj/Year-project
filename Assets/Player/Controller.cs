@@ -14,6 +14,9 @@ public class Controller : MonoBehaviour
     CharacterController cc;
     public GameObject prefab_body;
     public GameObject Wanted_Image;
+    public bool CanUse;
+    public GameObject Use_button;
+    Kolonka_boom kb;
     void Start()
     {
         AP = GetComponent<Animator_player>();
@@ -21,6 +24,7 @@ public class Controller : MonoBehaviour
         pnpc = FindObjectOfType<ParentNPC>();
         transform.position = new Vector3(transform.position.x,transform.position.y,-2);
         Wanted_Image.SetActive(false);
+        kb = FindObjectOfType<Kolonka_boom>();
     }
 
     Vector2 movement;
@@ -55,18 +59,66 @@ public class Controller : MonoBehaviour
             AP.walking = false;
         }
         cc.Move(movement);
-        if (Keyboard.current.eKey.IsPressed())
+        if (CanUse)
+        {
+            Use_button.SetActive(true);
+        }
+        else
+        {
+            Use_button.SetActive(false);
+        }
+        Debug.Log(kb.all_kolonki.Length);
+        // ==== Активация колонки по клавише R ====
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            // 1. Ищем ближайшую ЖИВУЮ колонку
+            float minDist = Mathf.Infinity;
+            GameObject nearest = null;
+
+            for (int ck = 0; ck < kb.all_kolonki.Length; ck++)
+            {
+                if (kb.all_kolonki[ck] == null) continue; // пропускаем уничтоженные
+
+                float d = Vector3.Distance(transform.position, kb.all_kolonki[ck].transform.position);
+                if (d < minDist)
+                {
+                    minDist = d;
+                    nearest = kb.all_kolonki[ck].gameObject;
+                }
+            }
+
+            // 2. Проверяем, что ближайшая колонка в радиусе активации
+            if (nearest != null && minDist <= 5f)
+            {
+                kb.current_kolonka = nearest;
+                kb.boom = true;
+            }
+        }
+        if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             GameObject[] npc_c = GameObject.FindGameObjectsWithTag("NPC");
-            foreach(GameObject npc in npc_c)
+
+            // Ищем ближайшего NPC в радиусе
+            GameObject nearestNpc = null;
+            float minDist = Mathf.Infinity;
+
+            foreach (GameObject npc in npc_c)
             {
-                if(Vector2.Distance(npc.transform.position, transform.position) < 2f)
+                float d = Vector2.Distance(npc.transform.position, transform.position);
+                if (d < 2f && d < minDist)
                 {
-                    pnpc.npc_counter++;
-                    GameObject body_dead = Instantiate(prefab_body);
-                    body_dead.transform.position = npc.transform.position;
-                    Destroy(npc);
+                    minDist = d;
+                    nearestNpc = npc;
                 }
+            }
+            Debug.Log(nearestNpc);
+            // Убиваем только одного
+            if (nearestNpc != null)
+            {
+                pnpc.npc_counter++;
+                GameObject body_dead = Instantiate(prefab_body);
+                body_dead.transform.position = nearestNpc.transform.position;
+                Destroy(nearestNpc);
             }
         }
     }

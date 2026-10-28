@@ -15,6 +15,7 @@ public class NPC_Controller : MonoBehaviour
     GameObject point_temp;
     Animator_script_NPC npc_anim;
     public GameObject[] bodyes;
+    public GameObject[] number_of_telephones;
     public GameObject telephone;
     Police_script police_Script;
 
@@ -36,7 +37,8 @@ public class NPC_Controller : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.destination = point_temp.transform.position;
         agent.updateUpAxis = false;
-        telephone = GameObject.FindGameObjectWithTag("telephone");
+        number_of_telephones = GameObject.FindGameObjectsWithTag("telephone");
+        telephone = number_of_telephones[Random.Range(0, number_of_telephones.Length)];
     }
 
     float stopTime;
@@ -106,7 +108,7 @@ public class NPC_Controller : MonoBehaviour
         }
 
         // body/panic mechanic
-        if (Keyboard.current != null && Keyboard.current.eKey.isPressed)
+        if (GameObject.FindGameObjectWithTag("Dead_body") != null)
         {
             bodyes = GameObject.FindGameObjectsWithTag("Dead_body");
         }
