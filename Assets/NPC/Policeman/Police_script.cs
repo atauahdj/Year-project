@@ -24,6 +24,10 @@ public class Police_script : MonoBehaviour
     public GameObject Wanted_Image;
 
     float chasing_timer;
+    // void Awake()
+    // {
+    //     Debug.Log("Police Awake: " + gameObject.name + "\n" + System.Environment.StackTrace);
+    // }
 
     void Start()
     {

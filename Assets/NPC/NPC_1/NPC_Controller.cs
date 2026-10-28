@@ -156,9 +156,9 @@ public class NPC_Controller : MonoBehaviour
                 policeCalled = false;
             }
         }
-
+//        Debug.Log("panic: " + panic + " police called: " + policeCalled + " current body: " + currentBody);
         // у телефона: звоним, только если ещё не звонили
-        if (telephone != null && Vector3.Distance(transform.position, telephone.transform.position) <= 2.5f)
+        if (telephone != null && Vector3.Distance(transform.position, telephone.transform.position) <= 2.5f && panic)
         {
             if (police_Script == null && !policeCalled)
             {

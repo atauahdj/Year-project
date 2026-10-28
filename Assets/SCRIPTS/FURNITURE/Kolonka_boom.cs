@@ -18,8 +18,6 @@ public class Kolonka_boom : MonoBehaviour
         ParentNPC = FindObjectOfType<ParentNPC>();
         all_kolonki = GameObject.FindGameObjectsWithTag("kolonka");
     }
-
-    GameObject current_npc;
     public GameObject current_kolonka;
 
     void Update()
@@ -57,41 +55,32 @@ public class Kolonka_boom : MonoBehaviour
             till_boom += Time.deltaTime;
             if(till_boom > 5f)
             {
-                //choose npc
-                current_npc = null;
-
-                if (ParentNPC.AllNPC != null && ParentNPC.AllNPC.Length > 0)
+                //kill
+                if (Vector3.Distance(current_kolonka.transform.position, player.transform.position) <= 10f)
                 {
-                    float minDist = Mathf.Infinity;
-
-                    for (int i = 0; i < ParentNPC.AllNPC.Length; i++)
+                    SceneManager.LoadScene(0);
+                }
+                else
+                {
+                    if (ParentNPC.AllNPC != null && ParentNPC.AllNPC.Length > 0)
                     {
-                        GameObject npc = ParentNPC.AllNPC[i];
-                        if (npc == null) continue;
-
-                        float d = Vector3.Distance(current_kolonka.transform.position, npc.transform.position);
-                        if (d < minDist)
+                        float minDist = 10f;
+                        for (int i = 0; i < ParentNPC.AllNPC.Length; i++)
                         {
-                            minDist = d;
-                            current_npc = npc;
+                            GameObject npc = ParentNPC.AllNPC[i];
+                            if (npc == null) continue;
+
+                            float d = Vector3.Distance(current_kolonka.transform.position, npc.transform.position);
+                            if (d < minDist)
+                            {
+                                Instantiate(body_prefab);
+                                body_prefab.transform.position = npc.transform.position;
+                                Destroy(npc);
+                            }
                         }
                     }
                 }
-                //kill
-                if (Vector3.Distance(current_kolonka.transform.position, player.transform.position) <= 7f
-                    || Vector3.Distance(current_kolonka.transform.position, current_npc.transform.position) <= 7f)
-                {
-                    if (Vector3.Distance(current_kolonka.transform.position, player.transform.position) <= 7f)
-                    {
-                        SceneManager.LoadScene(0);
-                    }
-                    else
-                    {
-                        Instantiate(body_prefab);
-                        body_prefab.transform.position = current_npc.transform.position;
-                        Destroy(current_npc);
-                    }
-                }
+                Debug.Log(till_boom);
                 Destroy(current_kolonka);
                 boom = false;
             }

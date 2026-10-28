@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "YearProject.slnx"
+    "dotnet.defaultSolution": "Year-project.slnx"
 }
