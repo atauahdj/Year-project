@@ -20,6 +20,8 @@ public class NPC_Controller : MonoBehaviour
     Police_script police_Script;
 
     public GameObject police_prefab;
+    int chance_to_drink;
+    public bool wanna_drink;
 
     // флаг, что мент уже был вызван (чтобы не звонить повторно)
     bool policeCalled = false;
@@ -106,7 +108,28 @@ public class NPC_Controller : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
-
+        if(chance_to_drink == 1)
+        {
+            wanna_drink = true;
+        }
+        else
+        {
+            wanna_drink = false;
+            chance_to_drink = Random.Range(0, 100 * 10000);
+        }
+        if (wanna_drink)
+        {
+            poison_script poison = GameObject.FindObjectOfType<poison_script>();
+            agent.destination = poison.transform.position;
+            if(Vector3.Distance(poison.transform.position, transform.position) <= 5f)
+            {
+                wanna_drink = false;
+            }
+        }
+        else
+        {
+            if(point != null)   agent.destination = point.transform.position;
+        }
         // body/panic mechanic
         if (GameObject.FindGameObjectWithTag("Dead_body") != null)
         {

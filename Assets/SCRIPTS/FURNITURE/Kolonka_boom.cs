@@ -10,6 +10,7 @@ public class Kolonka_boom : MonoBehaviour
     public GameObject body_prefab;
     public GameObject[] all_kolonki;
     public bool boom = false;
+    public Sprite boom_kolonka_sprite;
     float till_boom;
 
     void Start()
@@ -81,11 +82,13 @@ public class Kolonka_boom : MonoBehaviour
                     }
                 }
                 Debug.Log(till_boom);
-                Destroy(current_kolonka);
+                current_kolonka.tag = "Untagged";
+                current_kolonka.gameObject.GetComponent<SpriteRenderer>().sprite = boom_kolonka_sprite;
+                till_boom = 0f;
                 boom = false;
             }
         }
-        if (Vector3.Distance(current_kolonka.transform.position, player.transform.position) < 5f && !boom)
+        if (Vector3.Distance(current_kolonka.transform.position, player.transform.position) < 5f && !boom && current_kolonka.tag == "kolonka")
         {
             player.CanUse = true;
         }
