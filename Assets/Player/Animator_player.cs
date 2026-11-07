@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Animator_player : MonoBehaviour
 {
     public SpriteRenderer player_renderer;
+    public GameObject player;
     public Sprite[] Idle;
     int idl;
     public Sprite[] Move;
@@ -19,6 +20,7 @@ public class Animator_player : MonoBehaviour
     private void Start()
     {
         c = GetComponent<Controller>();
+        player = player_renderer.gameObject;
     }
     void Update()
     {
@@ -101,12 +103,14 @@ public class Animator_player : MonoBehaviour
             }
         }
 
-        if (Keyboard.current.eKey.IsPressed())
+        if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             kill = true;
         }
         if (kill)
         {
+            Controller pcnt = player.GetComponent<Controller>();
+            float norm_speed = pcnt.speed;
             if (kl >= Kill.Length)
             {
                 kl = 0;
@@ -119,8 +123,13 @@ public class Animator_player : MonoBehaviour
                 currentTime = 0;
                 if (kl >= Kill.Length)
                 {
+                    pcnt.speed = norm_speed;
                     kill = false;
                 }
+            }
+            else
+            {
+                pcnt.speed = 0;
             }
         }
     }

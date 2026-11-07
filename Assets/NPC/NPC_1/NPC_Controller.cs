@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.AnimatedValues;
+//using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -117,7 +117,7 @@ public class NPC_Controller : MonoBehaviour
             wanna_drink = false;
             chance_to_drink = Random.Range(0, 100 * 10000);
         }
-        if (wanna_drink)
+/*        if (wanna_drink)
         {
             poison_script poison = GameObject.FindObjectOfType<poison_script>();
             agent.destination = poison.transform.position;
@@ -129,7 +129,7 @@ public class NPC_Controller : MonoBehaviour
         else
         {
             if(point != null)   agent.destination = point.transform.position;
-        }
+        }*/
         // body/panic mechanic
         if (GameObject.FindGameObjectWithTag("Dead_body") != null)
         {

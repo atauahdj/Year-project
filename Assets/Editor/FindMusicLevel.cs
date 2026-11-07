@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEditor.Events;
 using UnityEngine;
-using UnityEngine.EventSystems;
+//using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class FindMusicLevel : MonoBehaviour
@@ -13,7 +13,6 @@ public class FindMusicLevel : MonoBehaviour
     {
         Debug.Log("Start");
         Debug.Log(timer);
-        
     }
 
     // Update is called once per frame

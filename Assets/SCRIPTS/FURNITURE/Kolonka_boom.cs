@@ -76,6 +76,7 @@ public class Kolonka_boom : MonoBehaviour
                             {
                                 Instantiate(body_prefab);
                                 body_prefab.transform.position = npc.transform.position;
+                                ParentNPC.npc_counter++;
                                 Destroy(npc);
                             }
                         }
@@ -88,7 +89,7 @@ public class Kolonka_boom : MonoBehaviour
                 boom = false;
             }
         }
-        if (Vector3.Distance(current_kolonka.transform.position, player.transform.position) < 5f && !boom && current_kolonka.tag == "kolonka")
+        if (Vector3.Distance(current_kolonka.transform.position, player.transform.position) < 5f && !boom && current_kolonka.tag == "kolonka" && player != null)
         {
             player.CanUse = true;
         }
