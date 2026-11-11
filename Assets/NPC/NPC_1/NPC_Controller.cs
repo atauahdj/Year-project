@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 
 public class NPC_Controller : MonoBehaviour
 {
+    GameObject player;
     NavMeshAgent agent;
     public GameObject point_prefab;
     Transform point;
@@ -22,6 +23,7 @@ public class NPC_Controller : MonoBehaviour
     public GameObject police_prefab;
     int chance_to_drink;
     public bool wanna_drink;
+    public Transform podozrevaemiy;
 
     // флаг, что мент уже был вызван (чтобы не звонить повторно)
     bool policeCalled = false;
@@ -31,6 +33,7 @@ public class NPC_Controller : MonoBehaviour
 
     void Start()
     {
+        player = FindObjectOfType<Controller>().gameObject;
         npc_anim = GetComponent<Animator_script_NPC>();
         point_temp = Instantiate(point_prefab);
         float x = Random.Range(-27.6f, 27.6f);
@@ -44,7 +47,7 @@ public class NPC_Controller : MonoBehaviour
     }
 
     float stopTime;
-
+    float timer = 0; // <==== для подозреваемого
     void Update()
     {
         // panic-режим: бежим к телефону, только если мент ещё не вызван
@@ -160,6 +163,10 @@ public class NPC_Controller : MonoBehaviour
                     agent.isStopped = false;
                     agent.speed = 5;
                     police_Script = FindObjectOfType<Police_script>();
+                    if(Vector3.Distance(player.transform.position, currentBody.transform.position) <= 7f)
+                    {
+                        podozrevaemiy = player.transform;
+                    }
                 }
                 else if (police_Script != null)
                 {
@@ -177,6 +184,15 @@ public class NPC_Controller : MonoBehaviour
             {
                 panic = false;
                 policeCalled = false;
+            }
+        }
+        if(podozrevaemiy != null)
+        {
+            timer += Time.deltaTime;
+            if(timer > 15f)
+            {
+                timer = 0;
+                podozrevaemiy = null;
             }
         }
 //        Debug.Log("panic: " + panic + " police called: " + policeCalled + " current body: " + currentBody);

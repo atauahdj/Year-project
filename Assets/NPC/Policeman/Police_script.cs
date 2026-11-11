@@ -28,7 +28,6 @@ public class Police_script : MonoBehaviour
     // {
     //     Debug.Log("Police Awake: " + gameObject.name + "\n" + System.Environment.StackTrace);
     // }
-
     void Start()
     {
         police_called = true;
@@ -45,7 +44,15 @@ public class Police_script : MonoBehaviour
     {
         startTime += Time.deltaTime;
         agent.updateRotation = false;
-
+        
+        // ---- Жоские прелюдия. Проверка на подозреваемых ----
+        foreach(NPC_Controller controller in GameObject.FindObjectsOfType<NPC_Controller>())
+        {
+            if(controller.podozrevaemiy != null)
+            {
+                chase_player = true;
+            }
+        }
         // ---- 1. Погоня за игроком ----
         foreach (GameObject b in GameObject.FindGameObjectsWithTag("Dead_body"))
         {
@@ -79,6 +86,15 @@ public class Police_script : MonoBehaviour
             {
                 Wanted_Image.SetActive(false);
                 chase_player = false;
+            }
+        
+            if (agent.destination.x > transform.position.x)
+            {
+                sprite_renderer.flipX = false;
+            }
+            else
+            {
+                sprite_renderer.flipX = true;
             }
             return; // пока гонимся — не занимаемся трупами
         }
@@ -135,13 +151,15 @@ public class Police_script : MonoBehaviour
         }
 
         // Поворот к цели
+        //Quaternion rotation_current = sprite_renderer.transform.rotation;
+       // sprite_renderer.transform.rotation = Quaternion.Euler(, rotation_current.y, rotation_current.z);
         if (agent.destination.x > transform.position.x)
         {
-            sprite_renderer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            sprite_renderer.flipX = false;
         }
         else
         {
-            sprite_renderer.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
+            sprite_renderer.flipX = true;
         }
 
         // Движение и уничтожение трупа
